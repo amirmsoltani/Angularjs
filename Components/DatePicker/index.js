@@ -2,15 +2,20 @@ app.component('datePicker', {
     transclude: true,
     templateUrl: 'Components/DatePicker/index.html',
     controller: function () {
+        $(document).on('click', '.date-picker-days-day', function () {
+            document.body.addEventListener();
 
+        });
         this.weekDay = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'];
         this.start = 0;
         this.first = null;
         this.end = null;
         this.hover = null;
+        this.lang = 'en';
         let tooltip = false;
         const today = moment();
-        const month = new Date(today.getFullYear(), today.getMonth(), 1, 0, 0, 0);
+        const month = moment(today.format('YYYY/MM/01'), 'YYYY/MM/DD');
+        const jMonth = moment(today.format('jYYYY/jMM/01'), 'jYYYY/jMM/DD');
         const convert = (1000 * 60 * 60 * 24);
         const monthsName = {
             fa: [],
@@ -18,27 +23,26 @@ app.component('datePicker', {
         };
         this.new_month = function () {
             if (this.value && this.first === null) {
-                this.first = new Date(this.value[0]);
-                this.end = new Date(this.value[1]);
-                const year = this.first.getFullYear() - today.getFullYear();
-                const month = this.first.getMonth() - today.getMonth();
+                this.first = moment(this.value[0], "YYYY/MM/DD");
+                this.end = moment(this.value[1], "YYYY/MM/DD");
+                const year = this.first.year() - today.year();
+                const month = this.first.month() - today.month();
                 this.start = Math.floor((year * 365) / 30) + month;
             }
             this.months = [];
             for (let m = 0; m < 2; m++) {
 
                 const days = [];
-                const date = new Date(month.getFullYear(), month.getMonth() + m + this.start, 1);
-                const year = date.getFullYear();
-                const currentMonth = date.getMonth();
-                const weekDay = date.getDay();
-                for (let day = 1; day <= new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() + weekDay; day++)
+                const date = moment(month).add(this.start + m, 'month');
+                const weekDay = date.day();
+                for (let day = 1; day <= moment.jDaysInMonth(date.format('jYYYY,jMM'), 'YYYY/MM/DD') + weekDay; day++) {
                     days.push({
                         text: weekDay >= day ? '' : day - weekDay,
-                        data: weekDay >= day ? null : new Date(year, currentMonth, day - weekDay)
+                        data: weekDay >= day ? null : moment(date.format('YYYY/MM/' + (day - weekDay)), "YYYY/MM/DD")
                     });
+                }
                 this.months.push({
-                    name: monthsName['en'][date.getMonth()], days: days,
+                    name: monthsName['en'][date.month()], days: days,
                     button: m ? "fa fa-arrow-circle-o-right" : "fa fa-arrow-circle-o-left"
                 })
             }
@@ -94,14 +98,14 @@ app.component('datePicker', {
             const date = data.day.data;
             if (data.day.text === '' || date === null)
                 return '';
-            else if (this.first !== null && date.getFullYear() === this.first.getFullYear() && date.getMonth() === this.first.getMonth() &&
-                date.getDate() === this.first.getDate())
+            else if (this.first !== null && date.year() === this.first.year() && date.month() === this.first.month() &&
+                date.date() === this.first.date())
                 return 'date-picker-day-first';
             else if ((this.first !== null) && ((date > this.first && date < this.end)
                 || (this.end === null && date > this.first && date < this.hover)))
                 return 'date-picker-day-mid';
-            else if ((this.end !== null && date.getFullYear() === this.end.getFullYear() && date.getMonth() === this.end.getMonth() &&
-                date.getDate() === this.end.getDate() || (this.hover === date && this.end === null)) && this.first !== null)
+            else if ((this.end !== null && date.year() === this.end.year() && date.month() === this.end.month() &&
+                date.date() === this.end.date() || (this.hover === date && this.end === null)) && this.first !== null)
                 return 'date-picker-day-end';
             else if (date < today - convert || (this.first && Math.floor((date - this.first) / convert)) > 30 && this.end === null)
                 return "date-picker-day-hatchet"
