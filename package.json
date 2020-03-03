@@ -1,0 +1,17 @@
+{
+  "name": "Angularjs",
+  "version": "1.0.0",
+  "description": "salam",
+  "dependencies": {
+    "express": "^4.16.4",
+    "moment": "^2.24.0",
+    "moment-jalaali": "^0.9.1"
+  },
+  "main": "server.js",
+  "scripts": {
+    "start": "nodejs server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

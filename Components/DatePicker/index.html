@@ -1,0 +1,23 @@
+<link rel="stylesheet" type="text/css" href="Components/DatePicker/style.css"/>
+<div class="date-picker" ng-init="$ctrl.new_month($ctrl.defaultValue)">
+    <div class="date-picker-month" ng-repeat="(index,month) in $ctrl.months">
+        <div class="date-picker-month_nav">
+            <button type="button" class="date-picker-month_button {{month.button}}"
+                    ng-click="$ctrl.change_start(index)"></button>
+            <span class="date-picker-month_name">{{month.name}}</span>
+        </div>
+        <div class="date-picker-month_days">
+            <div class="date-picker-days_names">
+                <span class="date-picker-days_name" ng-repeat="name in $ctrl.weekDay">{{name}}</span>
+            </div>
+            <div class="date-picker-days_box">
+                <button ng-repeat="day in month.days" type="button" class="date-picker-days-day
+                {{day.text !== ''||' date-picker-days-day-disable'}}" ng-mouseleave="$ctrl.onHover(this,$event)"
+                        ng-mouseenter="$ctrl.onHover(this,$event)" ng-click="$ctrl.select(this)"
+                        ng-class="$ctrl.getClass(this)">
+                    {{day.text}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
