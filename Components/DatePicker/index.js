@@ -2,10 +2,7 @@ app.component('datePicker', {
     transclude: true,
     templateUrl: 'Components/DatePicker/index.html',
     controller: function () {
-        $(document).on('click', '.date-picker-days-day', function () {
-            document.body.addEventListener();
 
-        });
         this.weekDay = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'];
         this.start = 0;
         this.first = null;

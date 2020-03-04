@@ -5,6 +5,10 @@ app.config(function ($routeProvider) {
         templateUrl: "Routes/Home/index.html",
         controller: "HomeController",
     });
+    $routeProvider.when('/wsafar', {
+        templateUrl: "Routes/Wsafar/index.html",
+        controller: "WsafarController",
+    });
 });
 
 
