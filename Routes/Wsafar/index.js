@@ -1,11 +1,28 @@
 app.controller("WsafarController", ["$scope", "$http", function ($scope, $http) {
-
+    $scope.filters = {};
     $http.get('/json/wsafar.json').then(function (result) {
-        $scope.parentSerialize =  serialize(result.data.result.hotels);
-        $scope.childSerialize =  $scope.parentSerialize;
         $scope.hotels = result.data.result.hotels;
-        serializeByIndex($scope.hotels,$scope.childSerialize,{stars:[10,20,30,40,50,60,70,80,90,100]})
-    })
+        const data = serialize($scope.hotels);
+        $scope.parentSerialize = data[1];
+        $scope.objects = [data[0]];
+        $scope.childSerialize = $scope.parentSerialize;
 
+        serializeByIndex($scope.hotels, $scope.childSerialize, {stars: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]})
+    });
+    $scope.updateFilters = function (name, list) {
+        if (list.length === 0) {
+            delete $scope.filters[name];
+            if (Object.keys($scope.filters).length < 1) {
+                $scope.childSerialize = $scope.parentSerialize;
+                $scope.objects.splice(1, 1);
+                return ;
+            }
+        } else
+            $scope.filters[name] = list;
+        const data = serializeByIndex($scope.hotels, $scope.parentSerialize, $scope.filters);
+        $scope.childSerialize = data[1];
+        $scope.objects[1] = data[0];
+
+    }
 
 }]);

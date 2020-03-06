@@ -1,6 +1,6 @@
-app.component('starFilter', {
+app.component('boardTypeFilter', {
     transclude: true,
-    template: "<div><input  ng-repeat='(key,star) in $ctrl.stars' type='button' ng-click='$ctrl.change(key)' value='{{key+\"-\"+star.length}}' /></div>",
+    template: "<div><input  ng-repeat='(key,boardType) in $ctrl.boardTypes' type='button' ng-click='$ctrl.change(key)' value='{{key+\"-\"+boardType.length}}' /></div>",
     controller: function () {
         this.actives = [];
         this.change = function (key) {
@@ -12,16 +12,16 @@ app.component('starFilter', {
 
             let list = [];
             for (let i = 0; i < this.actives.length; i++)
-                list = union(this.parentStars[this.actives[i]], list);
+                list = union(this.parentBoardTypes[this.actives[i]], list);
 
-            this.updateFilters('stars', list);
+            this.updateFilters('boardTypes', list);
         }
 
 
     },
     bindings: {
-        stars: '<',
-        parentStars: '=',
+        boardTypes: '<',
+        parentBoardTypes: '=',
         hotels: '=',
         updateFilters: '=',
     }

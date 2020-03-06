@@ -1,5 +1,12 @@
-<div >
-
-
+<div>
+    <star-filter stars="childSerialize.stars" parent-stars="parentSerialize.stars" hotels="hotels"
+                 update-filters="updateFilters"/>
+    <board-type-filter hotels="hotels" update-filters="updateFilters" parent-board-types="parentSerialize.boardTypes"
+                       board-types="childSerialize.boardTypes"/>
+    <location-filter hotels="hotels" update-filters="updateFilters" parent-locations="parentSerialize.locations"
+                       locations="childSerialize.locations"/>
+    <ul>
+        <li ng-repeat="obj in objects[objects.length-1]">{{hotels[obj].name}}</li>
+    </ul>
 </div>
 
