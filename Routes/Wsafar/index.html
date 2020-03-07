@@ -6,7 +6,7 @@
     <location-filter hotels="hotels" update-filters="updateFilters" parent-locations="parentSerialize.locations"
                        locations="childSerialize.locations"/>
     <ul>
-        <li ng-repeat="obj in objects[objects.length-1]">{{hotels[obj].name}}</li>
+        <li ng-repeat="obj in objects[objects.length-1]" ng-init="hotel=hotels[obj]">{{hotel.name}}</li>
     </ul>
 </div>
 

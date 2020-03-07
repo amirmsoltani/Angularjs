@@ -12,11 +12,48 @@ app.component('datePicker', {
         let tooltip = false;
         const today = moment();
         const month = moment(today.format('YYYY/MM/01'), 'YYYY/MM/DD');
-        const jMonth = moment(today.format('jYYYY/jMM/01'), 'jYYYY/jMM/DD');
+        const jMonth = moment(today.format('jYYYY/jMM/01'), 'jYYYY/jMM/jDD');
         const convert = (1000 * 60 * 60 * 24);
         const monthsName = {
             fa: [],
             en: ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+        };
+        this.getJalaliMonths = function () {
+            this.months = [];
+            for (let m = 0; m < 2; m++) {
+                const days = [];
+                const date = moment(jMonth);
+                date.add(this.start + m, 'month');
+                const weekDay = date.day();
+                for (let day = 1; day <= moment.jDaysInMonth(date.jYear(), date.jMonth()) + weekDay; day++) {
+                    days.push({
+                        text: weekDay >= day ? '' : day - weekDay,
+                        data: weekDay >= day ? null : moment(date.format('YYYY/MM/' + (day - weekDay)), "YYYY/MM/DD")
+                    });
+                }
+                this.months.push({
+                    name: date.format('jMMMM'), days: days,
+                    button: m ? "fa fa-arrow-circle-o-right" : "fa fa-arrow-circle-o-left"
+                });
+            }
+        };
+        this.getMonths = function () {
+            this.months = [];
+            for (let m = 0; m < 2; m++) {
+                const days = [];
+                const date = moment(month).add(this.start + m, 'month');
+                const weekDay = date.day();
+                for (let day = 1; day <= date.daysInMonth() + weekDay; day++) {
+                    days.push({
+                        text: weekDay >= day ? '' : day - weekDay,
+                        data: weekDay >= day ? null : moment(date.format('YYYY/MM/' + (day - weekDay)), "YYYY/MM/DD")
+                    });
+                }
+                this.months.push({
+                    name: date.format('MMMM'), days: days,
+                    button: m ? "fa fa-arrow-circle-o-right" : "fa fa-arrow-circle-o-left"
+                });
+            }
         };
         this.new_month = function () {
             if (this.value && this.first === null) {
@@ -26,23 +63,9 @@ app.component('datePicker', {
                 const month = this.first.month() - today.month();
                 this.start = Math.floor((year * 365) / 30) + month;
             }
-            this.months = [];
-            for (let m = 0; m < 2; m++) {
+            this.getJalaliMonths();
 
-                const days = [];
-                const date = moment(month).add(this.start + m, 'month');
-                const weekDay = date.day();
-                for (let day = 1; day <= moment.jDaysInMonth(date.format('jYYYY,jMM'), 'YYYY/MM/DD') + weekDay; day++) {
-                    days.push({
-                        text: weekDay >= day ? '' : day - weekDay,
-                        data: weekDay >= day ? null : moment(date.format('YYYY/MM/' + (day - weekDay)), "YYYY/MM/DD")
-                    });
-                }
-                this.months.push({
-                    name: monthsName['en'][date.month()], days: days,
-                    button: m ? "fa fa-arrow-circle-o-right" : "fa fa-arrow-circle-o-left"
-                })
-            }
+
         };
         this.change_start = function (index) {
             if (index)
@@ -112,7 +135,7 @@ app.component('datePicker', {
 
     },
     bindings: {
-        value: '=',
+        value: '<',
         onSelect: '=',
     }
 });
