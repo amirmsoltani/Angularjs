@@ -4,9 +4,13 @@
     <board-type-filter hotels="hotels" update-filters="updateFilters" parent-board-types="parentSerialize.boardTypes"
                        board-types="childSerialize.boardTypes"/>
     <location-filter hotels="hotels" update-filters="updateFilters" parent-locations="parentSerialize.locations"
-                       locations="childSerialize.locations"/>
+                     locations="childSerialize.locations"/>
+    <sorting hotels="hotels" update-filters="updateFilters" all-index="objects[0]" by="priceToman"/>
+    <sorting hotels="hotels" update-filters="updateFilters" all-index="objects[0]" by="starRate"/>
     <ul>
-        <li ng-repeat="obj in objects[objects.length-1]" ng-init="hotel=hotels[obj]">{{hotel.name}}</li>
+        <li ng-repeat="(index,obj) in objects[objects.length-1]" ng-init="hotel=hotels[obj]">{{hotel.name
+            +"-"+hotel.priceToman+"-"+hotel.starRate+"-"+hotel.i}}
+        </li>
     </ul>
 </div>
 

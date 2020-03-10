@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "salam",
   "dependencies": {
+    "bootstrap": "^4.4.1",
     "express": "^4.16.4",
     "moment": "^2.24.0",
     "moment-jalaali": "^0.9.1"

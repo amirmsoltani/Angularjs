@@ -6,8 +6,6 @@ app.controller("WsafarController", ["$scope", "$http", function ($scope, $http) 
         $scope.parentSerialize = data[1];
         $scope.objects = [data[0]];
         $scope.childSerialize = $scope.parentSerialize;
-
-        serializeByIndex($scope.hotels, $scope.childSerialize, {stars: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]})
     });
     $scope.updateFilters = function (name, list) {
         if (list.length === 0) {
