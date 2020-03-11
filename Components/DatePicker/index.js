@@ -8,7 +8,8 @@ app.component('datePicker', {
         this.first = null;
         this.end = null;
         this.hover = null;
-        this.type = 'J';
+        this.type = 'M';
+        this.agent = 'desktop';
         let tooltip = false;
         const today = moment();
         const convert = (1000 * 60 * 60 * 24);
@@ -26,21 +27,33 @@ app.component('datePicker', {
                     str += n[i];
             return str;
         };
+        this.$onInit = function () {
+            if (this.first)
+                this.getOneYearMonths(this.first);
+            else
+                this.getOneYearMonths(today);
+            this.desktop = {
+                J: [this.months.J[this.start], this.months.J[this.start + 1]],
+                M: [this.months.M[this.start], this.months.M[this.start + 1]]
+            };
+
+
+        };
         this.months = {J: [], M: []};
         this.getJDays = function (date) {
             const days = [];
-            const weekDay = date.day()%6;
+            const weekDay = date.day() % 6;
             for (let i = 0; i <= moment.jDaysInMonth(date.jYear(), date.jMonth()) + weekDay; i++)
                 days.push({
-                    text: weekDay >= i ? '' :this.persianNumber( (i - weekDay).toString()),
+                    text: weekDay >= i ? '' : this.persianNumber((i - weekDay).toString()),
                     data: weekDay >= i ? null : moment(date.format('jYYYY/jMM/' + (i - weekDay)), "jYYYY/jMM/jDD")
                 });
             return days;
         };
         this.getDays = function (date) {
             const days = [];
-            const weekDay = date.day()%6;
-            for (let i = 0; i <= date.daysInMonth() + weekDay; i++)
+            const weekDay = date.day();
+            for (let i = 1; i <= date.daysInMonth() + weekDay; i++)
                 days.push({
                     text: weekDay >= i ? '' : i - weekDay,
                     data: weekDay >= i ? null : moment(date.format('YYYY/MM/' + (i - weekDay)), "YYYY/MM/DD")
@@ -61,61 +74,17 @@ app.component('datePicker', {
                 Jmonth.add(1, 'jMonth');
             }
         };
-        this.getJalaliMonths = function () {
-            this.months = [];
-            for (let m = 0; m < 2; m++) {
-                const days = [];
-                const date = moment(jMonth);
-                date.add(this.start + m, 'month');
-                const weekDay = date.day();
-                for (let day = 1; day <= moment.jDaysInMonth(date.jYear(), date.jMonth()) + weekDay; day++) {
-                    days.push({
-                        text: weekDay >= day ? '' : day - weekDay,
-                        data: weekDay >= day ? null : moment(date.format('YYYY/MM/' + (day - weekDay)), "YYYY/MM/DD")
-                    });
-                }
-                this.months.push({
-                    name: date.format('jMMMM'), days: days,
-                    button: m ? "fa fa-arrow-circle-o-right" : "fa fa-arrow-circle-o-left"
-                });
-            }
-        };
-        this.getMonths = function () {
-            this.months = [];
-            for (let m = 0; m < 2; m++) {
-                const days = [];
-                const date = moment(month).add(this.start + m, 'month');
-                const weekDay = date.day();
-                for (let day = 1; day <= date.daysInMonth() + weekDay; day++) {
-                    days.push({
-                        text: weekDay >= day ? '' : day - weekDay,
-                        data: weekDay >= day ? null : moment(date.format('YYYY/MM/' + (day - weekDay)), "YYYY/MM/DD")
-                    });
-                }
-                this.months.push({
-                    name: date.format('MMMM'), days: days,
-                    button: m ? "fa fa-arrow-circle-o-right" : "fa fa-arrow-circle-o-left"
-                });
-            }
-        };
-        this.new_month = function () {
-            if (this.value && this.first === null) {
-                this.first = moment(this.value[0], "YYYY/MM/DD");
-                this.end = moment(this.value[1], "YYYY/MM/DD");
-                const year = this.first.year() - today.year();
-                const month = this.first.month() - today.month();
-                this.start = Math.floor((year * 365) / 30) + month;
-            }
-            this.getJalaliMonths();
 
 
-        };
         this.change_start = function (index) {
             if (index)
                 this.start += 1;
             else
                 this.start -= 1;
-            this.new_month();
+            this.desktop = {
+                J: [this.months.J[this.start], this.months.J[this.start + 1]],
+                M: [this.months.M[this.start], this.months.M[this.start + 1]]
+            }
         };
         this.onHover = function (data, event) {
             if (data.day.text === '')
@@ -149,7 +118,7 @@ app.component('datePicker', {
                 return '';
             else if (this.first === null)
                 this.first = data.day.data;
-            else if (this.end === null && Math.floor((data.day.data - this.first) / convert) <= 30) {
+            else if (this.end === null && Math.floor((data.day.data - this.first) / convert) <= 30 && this.first < date) {
                 this.end = data.day.data;
                 this.onSelect(this.first, this.end);
             } else if (this.end !== null && date > today - convert) {
@@ -170,7 +139,7 @@ app.component('datePicker', {
             else if ((this.end !== null && date.year() === this.end.year() && date.month() === this.end.month() &&
                 date.date() === this.end.date() || (this.hover === date && this.end === null)) && this.first !== null)
                 return 'date-picker-day-end';
-            else if (date < today - convert || (this.first && Math.floor((date - this.first) / convert)) > 30 && this.end === null)
+            else if (date < today - convert || ((this.first && Math.floor((date - this.first) / convert)) > 30 || this.first > date) && this.end === null)
                 return "date-picker-day-hatchet"
 
         }
@@ -178,7 +147,9 @@ app.component('datePicker', {
 
     },
     bindings: {
-        value: '<',
+        first: '<',
+        end: '<',
+        agent:'@',
         onSelect: '=',
     }
 });

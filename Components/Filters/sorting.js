@@ -1,9 +1,9 @@
 app.component('sorting', {
     transclude: true,
-    template: "<input type='button' value='sort by {{$ctrl.by}}' ng-click='$ctrl.change()'/>",
+    template: "<input type='button' value='sort by {{$ctrl.by}}' ng-click='$ctrl.sorting()'/>",
     controller: function () {
-        this.sorting = [];
-        this.process = function () {
+        this.Sorting = [];
+        this.sort = function () {
             const hotels = angular.copy(this.hotels);
             const len = hotels.length;
             for (let i = 0; i < len; i++) {
@@ -14,23 +14,23 @@ app.component('sorting', {
                         hotels[j + 1] = a;
                     }
                 }
-                this.sorting.push(hotels[hotels.length - 1 - i].i);
+                this.Sorting.push(hotels[hotels.length - 1 - i].i);
             }
         };
-        this.change = function (key) {
-            if (this.sorting.length > 1)
-                this.sorting.reverse();
+        this.sorting = function () {
+            if (this.Sorting.length > 1)
+                this.Sorting.reverse();
             else
-                this.process();
-            this.updateFilters('sorting', this.sorting);
-        }
-
+                this.sort();
+            this.updateFilters('sorting', this.Sorting);
+        };
 
     },
     bindings: {
         hotels: '=',
         updateFilters: '=',
         by: "@"
-    }
+    },
+
 
 });
