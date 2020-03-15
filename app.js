@@ -1,4 +1,4 @@
-const app = angular.module('App', ['ngRoute', 'ngAnimate']);
+const app = angular.module('App', ['ngRoute', 'ngAnimate',name]);
 
 app.config(function ($routeProvider) {
     $routeProvider.when('/', {
@@ -8,6 +8,10 @@ app.config(function ($routeProvider) {
     $routeProvider.when('/wsafar', {
         templateUrl: "Routes/Wsafar/index.html",
         controller: "WsafarController",
+    });
+    $routeProvider.when('/dropdown', {
+        templateUrl: "Routes/DropDown/index.html",
+        controller: "DropDownController",
     });
 });
 

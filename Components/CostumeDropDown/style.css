@@ -1,0 +1,23 @@
+.costume-drop-down-main
+{
+    min-width: 250px;
+    max-height: 400px;
+    background-color: gray;
+    overflow-y: scroll;
+}
+.costume-drop-down-child-group
+{
+
+}
+.costume-drop-down-child-icon{
+
+}
+.costume-drop-down-child-object
+{
+
+}
+.costume-drop-down-child-object:hover,.costume-drop-down-child-object.active
+{
+    background-color: whitesmoke;
+    cursor: pointer;
+}

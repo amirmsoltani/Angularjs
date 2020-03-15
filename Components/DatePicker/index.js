@@ -28,6 +28,7 @@ app.component('datePicker', {
             return str;
         };
         this.$onInit = function () {
+            this.changeDate = this.changeDate?this.changeDate:false;
             if (this.first)
                 this.getOneYearMonths(this.first);
             else
@@ -149,7 +150,12 @@ app.component('datePicker', {
     bindings: {
         first: '<',
         end: '<',
-        agent:'@',
+        agent:'=',
         onSelect: '=',
+        changeDate:'<',
+        title:"<",
+        onclose:"&",
+        acceptButton : "<",
+        onClose:'&',
     }
 });

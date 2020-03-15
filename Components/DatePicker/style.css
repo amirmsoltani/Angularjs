@@ -1,5 +1,4 @@
 
-
 .date-picker-month {
     display: flex;
     flex-flow: column;
@@ -7,8 +6,10 @@
 
 
 }
-.convert-button{
-    border: 1px dot-dash;
+
+.dash {
+    border: 1px rgba(10, 20, 30, .3) dashed;
+    background: none;
 }
 
 .date-picker-month:first-child {
@@ -105,7 +106,8 @@
     border-top-right-radius: 0;
     font-weight: bold;
 }
-.date-picker-day-hatchet{
+
+.date-picker-day-hatchet {
     background: repeating-linear-gradient(
             45deg,
             white,
@@ -177,21 +179,30 @@
 
 
 @media only screen and (max-width: 600px) {
-    .months-box{
-        height:80vmax;
+    .months-box {
+        height: 80vmax;
         position: relative;
         overflow-y: scroll;
         padding: 0;
         margin: 0;
     }
+
     .date-picker-month:first-child {
-        border:none;
+        border: none;
     }
-    .date-picker-month{
+
+    .date-picker-month {
         padding: 0;
     }
-    .date-picker{
+
+    .date-picker {
         padding: 0 20px 0 20px;
     }
 
+}
+
+.date-picker-close {
+    right: 10px !important;
+    top: 10px !important;
+    color: gray;
 }

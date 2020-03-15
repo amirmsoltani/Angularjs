@@ -1,0 +1,21 @@
+<link href="/Components/CostumeDropDown/style.css" type="text/css" rel="stylesheet"/>
+<div ng-mouseleave="$ctrl.leave = true" ng-mouseenter="$ctrl.leave = false">
+    <div class="costume-drop-down-head">
+        <input type="text"
+               ng-model="$ctrl.input"
+               ng-focus="$ctrl.focus()"
+               ng-class="$ctrl.class"
+               name="$ctrl.name"/>
+
+    </div>
+    <div class="position-absolute costume-drop-down-main d-flex flex-column" ng-show="$ctrl.show" id="{{$ctrl.mainId}}">
+
+        <span class="costume-drop-down-child-object" ng-repeat="(index,obj) in $ctrl.objects"
+              ng-class="$ctrl.pointer===index?'active':''">
+             <label class="costume-drop-down-child-icon">
+
+            </label>
+            {{obj[$ctrl.view]}}
+        </span>
+    </div>
+</div>
