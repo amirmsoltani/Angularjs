@@ -1,1 +1,22 @@
-<costume-drop-down for="serach" fit="false" objects="Nationalities" view="CountryName"/>
+<link href="/Components/CostumeDropDown/style.css?patch=1" type="text/css" rel="stylesheet"/>
+
+<costume-drop-down objects="objects?objects:Nationalities" view-name="CountryName"
+                   icons="CountryCode" on-change="filter(text)"
+                   input-name="test"
+                   icon-types="text"
+                   get-view="view"
+                   input-class="form-control class"
+                   class="w-25 position-relative d-inline-block"
+                   on-select="l(obj)"
+/>
+<costume-drop-down objects="objects?objects:dec" view-name="CountryCode"
+                   icons="CountryCode" on-change="filter(text)"
+                   input-name="test"
+                   icon-types="image"
+                   image-root="img/flags/"
+                   image-type=".png"
+                   get-view="im"
+                   class="w-50 position-relative d-inline-block"
+                   input-class="form-control"
+/>
+

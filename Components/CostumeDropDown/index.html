@@ -1,21 +1,23 @@
-<link href="/Components/CostumeDropDown/style.css" type="text/css" rel="stylesheet"/>
-<div ng-mouseleave="$ctrl.leave = true" ng-mouseenter="$ctrl.leave = false">
-    <div class="costume-drop-down-head">
+    <div class="costume-drop-down-head" ng-mouseleave="$ctrl.leave = true" ng-mouseenter="$ctrl.leave = false">
         <input type="text"
                ng-model="$ctrl.input"
-               ng-focus="$ctrl.focus()"
-               ng-class="$ctrl.class"
-               name="$ctrl.name"/>
+               ng-focus="$ctrl.focus($event)"
+               ng-class="$ctrl.inputClass"
+               ng-change="$ctrl.change()"
+               id="{{$ctrl.inputId}}"
+               name="{{$ctrl.inputName}}"
+        />
 
     </div>
-    <div class="position-absolute costume-drop-down-main d-flex flex-column" ng-show="$ctrl.show" id="{{$ctrl.mainId}}">
+    <div class="position-absolute costume-drop-down-main d-flex flex-column w-100" ng-show="$ctrl.show" id="{{$ctrl.mainId}}"
+         ng-mouseleave="$ctrl.leave = true" ng-mouseenter="$ctrl.leave = false">
 
         <span class="costume-drop-down-child-object" ng-repeat="(index,obj) in $ctrl.objects"
-              ng-class="$ctrl.pointer===index?'active':''">
-             <label class="costume-drop-down-child-icon">
-
+              ng-class="$ctrl.pointer===index?'active':''" ng-click="$ctrl.select(index);$ctrl.removeListen(true)">
+             <label class="costume-drop-down-child-icon_text" ng-if="$ctrl.iconTypes === undefined || $ctrl.iconTypes === 'text' ">
+                 {{$ctrl.icons?obj[$ctrl.icons]:''}}
             </label>
-            {{obj[$ctrl.view]}}
+            <img ng-if="$ctrl.iconTypes === 'image'" src="/{{$ctrl.imageRoot+obj[$ctrl.icons]+$ctrl.imageType}}"  alt="{{obj[$ctrl.icons]}}"/>
+            {{$ctrl.getView(obj)}}
         </span>
     </div>
-</div>
