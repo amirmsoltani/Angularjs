@@ -145,16 +145,21 @@ app.component('datePicker', {
 
         }
 
-
+        this.$onChanges = function(value){
+                if(value.checkIn)
+                this.first = moment(this.checkIn,this.inputFormat);
+                if(value.checkOut)
+                this.end = moment(this.checkOut,this.inputFormat);
+        }
     },
     bindings: {
-        first: '<',
-        end: '<',
+        checkIn: '<',
+        checkOut: '<',
+        inputFormat:'@',
         agent:'=',
         onSelect: '=',
         changeDate:'<',
         title:"<",
-        onclose:"&",
         acceptButton : "<",
         onClose:'&',
     }

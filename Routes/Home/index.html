@@ -1,4 +1,7 @@
-<date-picker on-select="select"  ng-click="update()" first="months[0]" end="months[1]"
-             agent="'desktop'" change-date="true" title="'salam'" ng-show="celender" on-close="celender=false" accept-button="'accept'"/>
+<date-picker on-select="select"  ng-click="update()" check-in="months[0].format('YYYY/MM/DD')" check-out="months[1].format('YYYY/MM/DD')"
+             agent="'desktop'" change-date="true" title="'salam'" ng-show="celender"
+              on-close="celender=false" accept-button="'accept'"
+              input-format="YYYY/MM/DD"
+              />
 
 
