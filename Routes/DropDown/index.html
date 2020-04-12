@@ -1,22 +1,14 @@
-<link href="/Components/CostumeDropDown/style.css?patch=1" type="text/css" rel="stylesheet"/>
+<link href="/Components/CostumeDropDown/style.css?patch=1" type="text/css" rel="stylesheet" />
+<link href="/Components/Pagination/style.css?patch=2" type="text/css" rel="stylesheet" />
+<costume-drop-down objects="objects?objects:Nationalities" view-name="CountryName" icons="CountryCode"
+    on-change="filter(text)" input-name="test" icon-types="text" get-view="view" input-class="form-control class"
+    class="w-25 position-relative d-inline-block" on-select="l(obj)" />
+<costume-drop-down objects="objects?objects:dec" view-name="CountryCode" icons="CountryCode" on-change="filter(text)"
+    input-name="test" icon-types="image" image-root="img/flags/" image-type=".png" get-view="im"
+    class="w-50 position-relative d-inline-block" input-class="form-control" />
 
-<costume-drop-down objects="objects?objects:Nationalities" view-name="CountryName"
-                   icons="CountryCode" on-change="filter(text)"
-                   input-name="test"
-                   icon-types="text"
-                   get-view="view"
-                   input-class="form-control class"
-                   class="w-25 position-relative d-inline-block"
-                   on-select="l(obj)"
-/>
-<costume-drop-down objects="objects?objects:dec" view-name="CountryCode"
-                   icons="CountryCode" on-change="filter(text)"
-                   input-name="test"
-                   icon-types="image"
-                   image-root="img/flags/"
-                   image-type=".png"
-                   get-view="im"
-                   class="w-50 position-relative d-inline-block"
-                   input-class="form-control"
-/>
-
+<pagination list='Nationalities' max-size="5" items-per-page="10" on-change="items1=list" first-text='aval' prev-text='back'
+    last-text='akhar' next-text='next' />
+<div ng-repeat="item in items1">
+    {{item}}
+</div>

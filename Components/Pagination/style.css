@@ -1,0 +1,12 @@
+.pagination
+{
+    display: flex;
+    flex-flow: row;
+}
+.pagination__item{
+    background-color: red;
+    margin: 10px;
+}
+.pagination__item--active{
+    background-color: royalblue;
+}
