@@ -1,18 +1,19 @@
 <div>
+    <search hotels="hotels" placeholder="test" filters="activesFilters" by="name" update-filters="updateFilters"
+        change-actives="activesFilters[key]=value" />
     <star-filter stars="childSerialize.stars" parent-stars="parentSerialize.stars" hotels="hotels"
-                 update-filters="updateFilters"/>
+        update-filters="updateFilters" />
     <board-type-filter hotels="hotels" update-filters="updateFilters" parent-board-types="parentSerialize.boardTypes"
-                       board-types="childSerialize.boardTypes"/>
+        board-types="childSerialize.boardTypes" />
     <location-filter hotels="hotels" update-filters="updateFilters" parent-locations="parentSerialize.locations"
-                     locations="childSerialize.locations"/>
-    <sorting hotels="hotels" update-filters="updateFilters"  by="priceToman"/>
-    <sorting hotels="hotels" update-filters="updateFilters"  by="starRate"/>
+        locations="childSerialize.locations" />
+    <sorting hotels="hotels" update-filters="updateFilters" by="priceToman" />
+    <sorting hotels="hotels" update-filters="updateFilters" by="starRate" />
     <ul>
         <li ng-repeat="(index,obj) in items1" ng-init="hotel=hotels[obj]">{{hotel.name
             +"-"+hotel.priceToman+"-"+hotel.starRate+"-"+hotel.i}}
         </li>
     </ul>
-    <pagination list='objects[objects.length-1]' max-size="5" items-per-page="10" on-change="items1=list" first-text='aval' prev-text='back'
-    last-text='akhar' next-text='next' />
+    <pagination list='objects[objects.length-1]' max-size="5" items-per-page="10" on-change="items1=list"
+        first-text='aval' prev-text='back' last-text='akhar' next-text='next' />
 </div>
-

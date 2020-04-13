@@ -1,4 +1,5 @@
 app.controller("WsafarController", ["$scope", "$http", function ($scope, $http) {
+    $scope.fill = {};
     $scope.filters = {};
     $http.get('/json/wsafar.json').then(function (result) {
         $scope.hotels = result.data.result.hotels;
@@ -20,6 +21,7 @@ app.controller("WsafarController", ["$scope", "$http", function ($scope, $http) 
         const data = serializeByIndex($scope.hotels, $scope.parentSerialize, $scope.filters);
         $scope.childSerialize = data[1];
         $scope.objects[1] = data[0];
+        console.log($scope.filters);
 
     }
 

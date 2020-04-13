@@ -18,6 +18,7 @@ app.component('sorting', {
             }
         };
         this.sorting = function () {
+            this.Sorting = angular.copy(this.Sorting);
             if (this.Sorting.length > 1)
                 this.Sorting.reverse();
             else

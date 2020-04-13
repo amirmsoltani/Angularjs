@@ -7,7 +7,10 @@ app.component('pagination', {
         ctrl = this;
         this.$onChanges = function (items) {
             if ((items.list || items.itemsPerPage) && ctrl.list)
+            {
                 ctrl.changePage(ctrl.page);
+                this.page = 1;
+            }
         }
         this.change = function (select) {
             switch (select) {
