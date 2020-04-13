@@ -8,9 +8,11 @@
     <sorting hotels="hotels" update-filters="updateFilters"  by="priceToman"/>
     <sorting hotels="hotels" update-filters="updateFilters"  by="starRate"/>
     <ul>
-        <li ng-repeat="(index,obj) in objects[objects.length-1]" ng-init="hotel=hotels[obj]">{{hotel.name
+        <li ng-repeat="(index,obj) in items1" ng-init="hotel=hotels[obj]">{{hotel.name
             +"-"+hotel.priceToman+"-"+hotel.starRate+"-"+hotel.i}}
         </li>
     </ul>
+    <pagination list='objects[objects.length-1]' max-size="5" items-per-page="10" on-change="items1=list" first-text='aval' prev-text='back'
+    last-text='akhar' next-text='next' />
 </div>
 

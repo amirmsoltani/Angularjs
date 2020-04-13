@@ -1,0 +1,20 @@
+<div class="pagination">
+    <button class="pagination__item" ng-if="$ctrl.firstText" ng-disabled="$ctrl.page ===1" ng-click="$ctrl.change('first')">
+        {{$ctrl.firstText}}
+    </button>
+    <button class="pagination__item" ng-if="$ctrl.prevText" ng-disabled="$ctrl.page === 1" ng-click="$ctrl.change('prev')">
+        {{$ctrl.prevText}}
+    </button>
+    <button ng-repeat="page in $ctrl.pages" class="pagination__item"
+        ng-class="$ctrl.page === page?'pagination__item--active':''" ng-click="$ctrl.change(page)">
+        {{page}}
+    </button>
+    <button class="pagination__item" ng-click="$ctrl.change('next')" ng-if="$ctrl.nextText"
+        ng-disabled="$ctrl.page >= $ctrl.pagelen">
+        {{$ctrl.nextText}}
+    </button>
+    <button class="pagination__item" ng-click="$ctrl.change('last')" ng-if="$ctrl.lastText"
+        ng-disabled="$ctrl.page >= $ctrl.pagelen">
+        {{$ctrl.lastText}}
+    </button>
+</div>

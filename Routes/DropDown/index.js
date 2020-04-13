@@ -21,5 +21,6 @@ app.controller("DropDownController", ["$scope", '$http', function ($scope, $http
     $scope.l = function (obj) {
         console.log(obj);
     }
+    $scope.items1 = [];
 
 }]);
